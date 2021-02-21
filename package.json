@@ -1,0 +1,30 @@
+{
+  "name": "boiler",
+  "version": "0.0.1",
+  "description": "An application that will allow users to manage a \"library\" of boilerplates for various project types they work on ",
+  "main": "app.js",
+  "bin": {
+    "boiler": "./bin/boiler.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristopherAChase/Boiler.git"
+  },
+  "author": "Christopher Chase",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChristopherAChase/Boiler/issues"
+  },
+  "homepage": "https://github.com/ChristopherAChase/Boiler#readme",
+  "devDependencies": {
+    "eslint": "^7.20.0"
+  },
+  "dependencies": {
+    "commander": "^7.1.0",
+    "configstore": "^5.0.1",
+    "inquirer": "^7.3.3"
+  }
+}
