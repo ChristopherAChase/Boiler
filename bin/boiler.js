@@ -5,8 +5,11 @@ const pkg = require('../package.json');
 const add = require('../commands/add');
 const list = require('../commands/list');
 const remove = require('../commands/remove');
-const generate = require('../commands/generate');
+const g = require('../commands/generate');
+// const Generator = require('../commands/generate');
 const program = new Command();
+
+global.__basedir = __dirname;
 
 program
     .version(pkg.version)
@@ -46,15 +49,18 @@ program
     })
 
 program
-    .command('generate <template>')
+    .command('generate <template> [directoryName]')
     .option('-b --bare', 'generates the folder structure without the files')
     .description('specify a name of an existing template to copy it to your directory')
-    .action((template, options) => {
-        if(options.bare){
-            generate.generateBareTemplate(template);
-        }
-        else{
-            generate.generateCompleteTemplate(template);
+    .action((template, directoryName, options) => {
+        g.template = template;
+        g.desiredLocation = directoryName;
+        g.isBare = options.bare;
+        
+        g.setTemplateLocation(template);
+        
+        if(g.templateLocation !== null){
+            g.generateTemplate()
         }
     })
 program.parse(process.argv)

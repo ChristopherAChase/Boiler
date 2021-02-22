@@ -25,6 +25,7 @@
   "dependencies": {
     "commander": "^7.1.0",
     "configstore": "^5.0.1",
+    "fs-extra": "^9.1.0",
     "inquirer": "^7.3.3"
   }
 }

@@ -1,3 +1,6 @@
+# Directories for where I store the templates
+directories/custom/*
+
 # Logs
 logs
 *.log
