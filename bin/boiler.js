@@ -4,8 +4,11 @@ const { Command } = require('commander');
 const pkg = require('../package.json');
 const add = require('../commands/add');
 const list = require('../commands/list');
+const view = require('../commands/view');
 const remove = require('../commands/remove');
+const util = require('../lib/util');
 const g = require('../commands/generate');
+
 // const Generator = require('../commands/generate');
 const program = new Command();
 
@@ -15,23 +18,24 @@ program
     .version(pkg.version)
 
 program
-    .command('list [directory]')
-    .description('list directory structure of specified template (defaults to current directory)')
-    .action((directory) => {
-        if (directory){
-            list.listTemplateStructure(directory);
-        }
-        else{
-            list.listCurrentDirectory();
-        }
+    .command('list')
+    .description('provides list of all templates available')
+    .action(() => {
+        list.listAvailableTemplates();
+    })
+program
+    .command('view [directory]')
+    .description('display directory structure of specified template (defaults to current directory)')
+    .action((directory = '.') => {
+        view.viewTemplateStructure(directory);
     })
 
 program
-    .command('add')
+    .command('add [templateName]')
     .option('-b, --bare', 'creates the new template with only the directories, none of the files')
     .description('add current directory structure as new boilerplate')
-    .action(() => {
-        add.addDirectory();
+    .action((templateName) => {
+        add.addTemplate(templateName);
     })
 
 program
@@ -54,12 +58,11 @@ program
     .description('specify a name of an existing template to copy it to your directory')
     .action((template, directoryName, options) => {
         g.template = template;
+        g.templateLocation = util.templateLocation(template)
         g.desiredLocation = directoryName;
         g.isBare = options.bare;
-        
-        g.setTemplateLocation(template);
-        
-        if(g.templateLocation !== null){
+
+        if(g.templateLocation){
             g.generateTemplate()
         }
     })

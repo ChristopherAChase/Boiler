@@ -1,10 +1,20 @@
-const list = {
-    listCurrentDirectory(){
-        console.log("I'm going to be listing the structure of the current directory here!! ");
-    },
+const tree = require('tree-node-cli');
+const util = require('../lib/util')
 
-    listTemplateStructure(template){
-        console.log(`If it exists, I will be listing the structure of template "${template}" here!!`);
+const list = {
+
+    listAvailableTemplates(){
+
+        const baseTemplates = tree(util.baseTemplateDirectory, {
+            dirsOnly: true,
+            maxDepth: 1
+        });
+        const customTemplates = tree(util.customTemplateDirectory, {
+            dirsOnly: true,
+            maxDepth: 1
+        });
+
+        console.log(`${baseTemplates}${customTemplates.length > 6 ? '\n' + customTemplates : ''}\n`);
     }
 
 };
