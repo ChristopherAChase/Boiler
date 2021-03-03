@@ -4,17 +4,12 @@ const util = require('../lib/util')
 const list = {
 
     listAvailableTemplates(){
+        const settings = {dirsOnly: true, maxDepth: 1};
 
-        const baseTemplates = tree(util.baseTemplateDirectory, {
-            dirsOnly: true,
-            maxDepth: 1
-        });
-        const customTemplates = tree(util.customTemplateDirectory, {
-            dirsOnly: true,
-            maxDepth: 1
-        });
-
-        console.log(`${baseTemplates}${customTemplates.length > 6 ? '\n' + customTemplates : ''}\n`);
+        const base = tree(util.baseTemplateDirectory, {...settings})
+        const custom = tree(util.customTemplateDirectory, {...settings})
+        
+        console.log(`${base}${custom.length > 6 ? '\n' + custom : ''}\n`);
     }
 
 };

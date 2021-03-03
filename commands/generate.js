@@ -14,17 +14,11 @@ const generate = {
             console.log(`There is already a directory named ${path.basename(this.desiredLocation)} here!`);
             return;
         }
-        fs.mkdir(path.resolve(this.desiredLocation), (err) => {
-            if (err) console.log(err);
-            fs.copy(this.templateLocation, path.resolve(this.desiredLocation), (err) => {
-                if(err) console.log(err);
-            })
-        })
 
-        if(this.isBare){
-            // Handle the bare option by removing all files from every directory... somehow.
-        }
-
+        fs.mkdir(path.resolve(this.desiredLocation))
+        .then(fs.copy(this.templateLocation, path.resolve(this.desiredLocation)) )
+        .catch((err) => console.error(err.message))
+        
         console.log(`Template "${this.template}" has been generated in directory ${path.basename(this.desiredLocation)}`);
     }
 }

@@ -1,5 +1,3 @@
-const path = require('path');
-const fs = require('fs-extra');
 const tree = require('tree-node-cli');
 const util = require('../lib/util')
 
