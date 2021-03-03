@@ -6,6 +6,7 @@ const add = require('../commands/add');
 const list = require('../commands/list');
 const view = require('../commands/view');
 const remove = require('../commands/remove');
+const rename = require('../commands/rename');
 const util = require('../lib/util');
 const g = require('../commands/generate');
 
