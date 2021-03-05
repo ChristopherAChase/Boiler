@@ -1,31 +1,47 @@
 #!/usr/bin/env node
 
-const { Command } = require('commander');
-const pkg = require('../package.json');
+// Import the commands for the main application to have access to run 
+const g = require('../commands/generate');
 const add = require('../commands/add');
 const list = require('../commands/list');
 const view = require('../commands/view');
 const remove = require('../commands/remove');
 const rename = require('../commands/rename');
 const util = require('../lib/util');
-const g = require('../commands/generate');
 
-// const Generator = require('../commands/generate');
+//Grants us access to the properties and information in the package.json file
+const pkg = require('../package.json'); 
+
+//Imports the commander library to easily retrieve and parse commands entered
+// in the console
+const { Command } = require('commander');
+//Instantiates the Command object in order to have access to all of it's properties and methods
 const program = new Command();
 
 global.__basedir = __dirname;
 
+// Adds a version number to the program using the version listed in the package.json file 
+
 program
     .version(pkg.version)
 
+/*
+    From here on down are the different commands available to the user.
+    .command() functions are the name of the command that the user enters into the command line
+    .description() method provides the text to describe the command when running boiler --help
+    .action() contains a function that performs the actions ran when the command is called
+        in this case, most of them are simply calling a function from a different command objects
+
+*/
 program
     .command('list')
     .description('provides list of all templates available')
     .action(() => {
         list.listAvailableTemplates();
     })
+
 program
-    .command('view [directory]')
+    .command('view [directory]') //Directory is optional - based on the [] surrounding the variable name
     .description('display directory structure of specified template (defaults to current directory)')
     .action((directory = '.') => {
         view.viewTemplateStructure(directory);
@@ -33,14 +49,15 @@ program
 
 program
     .command('add [templateName]')
-    .option('-b, --bare', 'creates the new template with only the directories, none of the files')
+    .option('-o, --overwrite', 'Overwrites template if one already exists')
     .description('add current directory structure as new boilerplate')
-    .action((templateName) => {
-        add.addTemplate(templateName);
+    .action((templateName, {overwrite}) => {
+        add.template = templateName;
+        add.addTemplate(overwrite);
     })
 
 program
-    .command('remove <template>')
+    .command('remove <template>') // template variable is required - base on the <> surrounding the variable name
     .description('remove specified directory structure as a boilerplate')
     .action((template) => {
         remove.removeDirectory(template);
@@ -55,16 +72,14 @@ program
 
 program
     .command('generate <template> [directoryName]')
-    .option('-b --bare', 'generates the folder structure without the files')
     .description('specify a name of an existing template to copy it to your directory')
-    .action((template, directoryName, options) => {
+    .action((template, directoryName) => {
         g.template = template;
         g.templateLocation = util.templateLocation(template)
         g.desiredLocation = directoryName;
-        g.isBare = options.bare;
 
         if(g.templateLocation){
             g.generateTemplate()
         }
     })
-program.parse(process.argv)
+program.parse(process.argv) //process variable is referring to Node.js itself.

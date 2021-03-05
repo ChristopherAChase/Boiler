@@ -1,5 +1,5 @@
 const tree = require('tree-node-cli');
-const util = require('../lib/util')
+const util = require('../lib/util');
 
 const view = {
     directoryPath : null,
@@ -10,7 +10,7 @@ const view = {
             const directory = tree(this.directoryPath, {
             exclude: [/node_modules/, /package*/, /LICENSE/]
             });
-    
+
             console.log(directory);
         } 
     },

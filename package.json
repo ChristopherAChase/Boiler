@@ -1,6 +1,6 @@
 {
   "name": "boiler",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "An application that will allow users to manage a \"library\" of boilerplates for various project types they work on ",
   "main": "app.js",
   "bin": {
@@ -24,8 +24,6 @@
   },
   "dependencies": {
     "commander": "^7.1.0",
-    "configstore": "^5.0.1",
-    "directory-tree": "^2.2.7",
     "fs-extra": "^9.1.0",
     "inquirer": "^7.3.3",
     "tree-node-cli": "^1.4.0"
