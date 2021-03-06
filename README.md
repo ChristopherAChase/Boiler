@@ -21,3 +21,14 @@ There are currently 6 commands available in the application
   * As expected, this command removes the specified template from the list of available templates
 * Rename <template name> <new template name> 
   * Another straight forward one, renames a template to maybe a more memorable, or shorter name.
+
+# Installation
+
+Once cloned to your local directory run the below command to create the node_modules directory
+`npm install`
+
+In order to run the commands "naturally", you are going to need to create a link to the project's directory from within the project's directory
+`npm link boiler`
+
+* you may need to have root permissions
+  *`sudo npm link boiler`
